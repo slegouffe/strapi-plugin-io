@@ -1,63 +1,9 @@
-### Node ###
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-.pnpm-debug.log*
-
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Dependency directories
-node_modules
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Output of 'npm pack'
-*.tgz
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# vitepress
-docs/.vitepress/dist
-docs/.vitepress/cache
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-### Node Patch ###
-### react ###
-.DS_*
-**/*.backup.*
-**/*.back.*
-
-### Strapi ###
-license.txt
-exports
-*.cache
-build
-.strapi-updater.json
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 ############################
 # OS X
+############################
+
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -66,10 +12,18 @@ Icon
 .Trashes
 ._*
 
+
+############################
 # Linux
+############################
+
 *~
 
+
+############################
 # Windows
+############################
+
 Thumbs.db
 ehthumbs.db
 Desktop.ini
@@ -79,7 +33,11 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+
+############################
 # Packages
+############################
+
 *.7z
 *.csv
 *.dat
@@ -95,39 +53,86 @@ $RECYCLE.BIN/
 *.dll
 *.exe
 *.o
+*.seed
 *.so
 *.swo
 *.swp
 *.swn
 *.swm
 *.out
+*.pid
 
+
+############################
 # Logs and databases
+############################
+
 .tmp
+*.log
 *.sql
 *.sqlite
 *.sqlite3
 
+
+############################
+# Misc.
+############################
+
+*#
+ssl
+.idea
+nbproject
+.tsbuildinfo
+.eslintcache
+.env
+
+
+############################
+# Strapi
+############################
+
+public/uploads/*
+!public/uploads/.gitkeep
+
+
+############################
+# Build
+############################
+
+dist
+build
+
+
+############################
 # Node.js
+############################
+
+lib-cov
 lcov.info
+pids
+logs
 results
+node_modules
 .node_history
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
-# Local History for Visual Studio Code
-.history/
+############################
+# Package managers
+############################
 
-# Built Visual Studio Code Extensions
-*.vsix
+.yarn/*
+!.yarn/cache
+!.yarn/unplugged
+!.yarn/patches
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+yarn-error.log
 
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-.ionide
+
+############################
+# Tests
+############################
+
+coverage

@@ -1,13 +1,15 @@
 'use strict';
 
+import { pluginId } from '../utils/pluginId';
+
 /**
  * Bootstrap lifecycles
  *
  * @param {*} params
  * @param {*} params.strapi
  */
-async function bootstrapLifecycles({ strapi }) {
-	strapi.config.get('plugin.io.contentTypes', []).forEach((ct) => {
+export const bootstrapLifecycles = async ({ strapi }) => {
+	strapi.config.get(`plugin::${pluginId}.contentTypes`, []).forEach((ct) => {
 		const uid = ct.uid ? ct.uid : ct;
 
 		const subscriber = {
@@ -136,4 +138,4 @@ function buildEventQuery({ event }) {
 	return query;
 }
 
-module.exports = { bootstrapLifecycles };
+export default bootstrapLifecycles;

@@ -2,7 +2,7 @@
 
 const { sanitize } = require('@strapi/utils');
 
-module.exports = ({ strapi }) => {
+export default ({ strapi }) => {
 	/**
 	 * Sanitize data output with a provided schema for a specified role
 	 *

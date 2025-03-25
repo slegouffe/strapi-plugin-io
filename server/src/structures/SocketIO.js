@@ -1,15 +1,15 @@
 'use strict';
 
-const { Server } = require('socket.io');
-const { handshake } = require('../middleware');
-const { getService } = require('../utils/getService');
-const { pluginId } = require('../utils/pluginId');
-const { API_TOKEN_TYPE } = require('../utils/constants');
+import { Server } from 'socket.io';
+import { pluginId } from '../utils/pluginId';
+import handshake from '../middlewares';
+import { getService } from '../utils/getService';
+import { API_TOKEN_TYPE } from '../utils/constants';
 
 class SocketIO {
 	constructor(options) {
-		this._socket = new Server(strapi.server.httpServer, options);
-		const { hooks } = strapi.config.get(`plugin.${pluginId}`);
+    this._socket = new Server(strapi.server.httpServer, options);
+		const { hooks } = strapi.config.get(`plugin::${pluginId}`);
 		hooks.init?.({ strapi, $io: this });
 		this._socket.use(handshake);
 	}
@@ -83,7 +83,4 @@ class SocketIO {
 		return this._socket;
 	}
 }
-
-module.exports = {
-	SocketIO,
-};
+export default SocketIO;

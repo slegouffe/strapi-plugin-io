@@ -1,12 +1,12 @@
 'use strict';
 
-const { castArray, isNil, pipe, every } = require('lodash/fp');
-const { differenceInHours, parseISO } = require('date-fns');
-const { getService } = require('../utils/getService');
-const { API_TOKEN_TYPE } = require('../utils/constants');
+import { castArray, isNil, pipe, every } from 'lodash/fp';
+import { differenceInHours, parseISO } from 'date-fns';
+import { getService } from '../utils/getService';
+import { API_TOKEN_TYPE } from '../utils/constants';
 const { UnauthorizedError, ForbiddenError } = require('@strapi/utils').errors;
 
-module.exports = ({ strapi }) => {
+export default ({ strapi }) => {
 	const apiTokenService = getService({ type: 'admin', plugin: 'api-token' });
 	const jwtService = getService({ name: 'jwt', plugin: 'users-permissions' });
 	const userService = getService({ name: 'user', plugin: 'users-permissions' });
@@ -73,6 +73,7 @@ module.exports = ({ strapi }) => {
 			}
 		},
 		getRoomName: function (role) {
+			console.log('role', role);
 			return `${this.name}-${role.name.toLowerCase()}`;
 		},
 		getRooms: function () {

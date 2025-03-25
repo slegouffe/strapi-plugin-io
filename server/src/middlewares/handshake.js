@@ -1,6 +1,6 @@
 'use strict';
 
-const { getService } = require('../utils/getService');
+import { getService } from '../utils/getService';
 
 /**
  * Auto assign sockets to appropriate rooms based on tokens associated name.
@@ -9,8 +9,8 @@ const { getService } = require('../utils/getService');
  * @param {require('socket.io').Socket} socket The socket attempting to connect
  * @param {Function} next Function to call the next middleware in the stack
  */
-async function handshake(socket, next) {
-	const strategyService = getService({ name: 'strategy' });
+export const handshake = async (socket, next) => {
+	const strategyService = getService({ name: 'strategies' });
 	const auth = socket.handshake.auth || {};
 	let strategy = auth.strategy || 'jwt';
 	const token = auth.token || '';
@@ -31,7 +31,6 @@ async function handshake(socket, next) {
 			const role = await strapi
 				.query('plugin::users-permissions.role')
 				.findOne({ where: { type: 'public' }, select: ['id', 'name'] });
-
 			room = strategyService['role'].getRoomName(role);
 		}
 
@@ -47,6 +46,4 @@ async function handshake(socket, next) {
 	}
 }
 
-module.exports = {
-	handshake,
-};
+export default handshake;

@@ -6,6 +6,4 @@ const API_TOKEN_TYPE = {
 	CUSTOM: 'custom',
 };
 
-module.exports = {
-	API_TOKEN_TYPE,
-};
+export { API_TOKEN_TYPE };

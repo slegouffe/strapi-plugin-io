@@ -1,7 +1,7 @@
 'use strict';
 
-const { SocketIO } = require('../structures');
-const { pluginId } = require('../utils/pluginId');
+import { SocketIO } from '../structures';
+import { pluginId } from '../utils/pluginId';
 
 /**
  * Bootstrap IO instance and related "services"
@@ -9,16 +9,16 @@ const { pluginId } = require('../utils/pluginId');
  * @param {*} params
  * @param {*} params.strapi
  */
-async function bootstrapIO({ strapi }) {
-	const settings = strapi.config.get(`plugin.${pluginId}`);
+export const bootstrapIO = async ({ strapi }) => {
+	const settings = strapi.config.get(`plugin::${pluginId}`);
 
-	// initialize io
+  // initialize io
 	const io = new SocketIO(settings.socket.serverOptions);
 
-	// make io avaiable anywhere strapi global object is
+	// // make io avaiable anywhere strapi global object is
 	strapi.$io = io;
 
-	// add any io server events
+  // add any io server events
 	if (settings.events?.length) {
 		strapi.$io.server.on('connection', (socket) => {
 			for (const event of settings.events) {
@@ -33,5 +33,3 @@ async function bootstrapIO({ strapi }) {
 		});
 	}
 }
-
-module.exports = { bootstrapIO };
