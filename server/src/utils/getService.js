@@ -9,7 +9,6 @@ const getService = ({ name, plugin = pluginId, type = 'plugin' }) => {
 		serviceUID += `.${name}`;
 	}
 
-	console.log('serviceUID', serviceUID);
 	return strapi.service(serviceUID);
 }
 

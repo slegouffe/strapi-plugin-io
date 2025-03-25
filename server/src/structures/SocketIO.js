@@ -17,7 +17,7 @@ class SocketIO {
 	// eslint-disable-next-line no-unused-vars
 	async emit({ event, schema, data: rawData }) {
 		const sanitizeService = getService({ name: 'sanitize' });
-		const strategyService = getService({ name: 'strategy' });
+		const strategyService = getService({ name: 'strategies' });
 		const transformService = getService({ name: 'transform' });
 
 		// account for unsaved single content type being null
@@ -26,17 +26,16 @@ class SocketIO {
 		}
 
 		const eventName = `${schema.singularName}:${event}`;
-
+		
 		for (const strategyType in strategyService) {
 			if (Object.hasOwnProperty.call(strategyService, strategyType)) {
 				const strategy = strategyService[strategyType];
-
+				
 				const rooms = await strategy.getRooms();
-
+				
 				for (const room of rooms) {
 					const permissions = room.permissions.map(({ action }) => ({ action }));
 					const ability = await strapi.contentAPI.permissions.engine.generateAbility(permissions);
-
 					if (room.type === API_TOKEN_TYPE.FULL_ACCESS || ability.can(schema.uid + '.' + event)) {
 						// sanitize
 						const sanitizedData = await sanitizeService.output({
@@ -55,7 +54,7 @@ class SocketIO {
 						});
 
 						const roomName = strategy.getRoomName(room);
-
+						
 						// transform
 						const data = transformService.response({ data: sanitizedData, schema });
 						// emit

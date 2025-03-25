@@ -44,7 +44,7 @@ export const bootstrapLifecycles = async ({ strapi }) => {
 		if (!ct.actions || ct.actions.includes('update')) {
 			const eventType = 'update';
 			subscriber.afterUpdate = async (event) => {
-				strapi.$io.emit({
+				await strapi.$io.emit({
 					event: eventType,
 					schema: event.model,
 					data: event.result,

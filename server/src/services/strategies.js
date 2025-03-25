@@ -73,12 +73,11 @@ export default ({ strapi }) => {
 			}
 		},
 		getRoomName: function (role) {
-			console.log('role', role);
 			return `${this.name}-${role.name.toLowerCase()}`;
 		},
-		getRooms: function () {
+		getRooms: async function () {
 			// fetch all role types
-			return strapi.entityService.findMany('plugin::users-permissions.role', {
+			return await strapi.entityService.findMany('plugin::users-permissions.role', {
 				fields: ['id', 'name'],
 				populate: { permissions: true },
 			});
@@ -171,9 +170,9 @@ export default ({ strapi }) => {
 		getRoomName: function (token) {
 			return `${this.name}-${token.name.toLowerCase()}`;
 		},
-		getRooms: function () {
+		getRooms: async function () {
 			// fetch active token types
-			return strapi.entityService.findMany('admin::api-token', {
+			return await strapi.entityService.findMany('admin::api-token', {
 				fields: ['id', 'type', 'name'],
 				filters: {
 					$or: [

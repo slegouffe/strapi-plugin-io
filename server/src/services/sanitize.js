@@ -1,7 +1,5 @@
 'use strict';
 
-const { sanitize } = require('@strapi/utils');
-
 export default ({ strapi }) => {
 	/**
 	 * Sanitize data output with a provided schema for a specified role
@@ -11,8 +9,8 @@ export default ({ strapi }) => {
 	 * @param {Object} param.data
 	 * @param {Object} param.auth
 	 */
-	function output({ schema, data, options }) {
-		return sanitize.contentAPI.output(data, schema, options);
+	const output = async ({ schema, data, options }) => {
+		return await strapi.contentAPI.sanitize.output(data, schema, options);
 	}
 
 	return {
